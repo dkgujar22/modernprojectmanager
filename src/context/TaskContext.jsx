@@ -3,7 +3,8 @@ import { createContext, useContext, useReducer} from "react";
 const TaskContext=createContext();
 
 const initialState={
-    tasks:[]
+    tasks:[],
+    
 }
 
 const reducer=(state,action)=>{

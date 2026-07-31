@@ -17,7 +17,7 @@ const TaskCard = () => {
     //     dueDate:'',
     //     assignlist:[]
     // });
-        const [showModal,setShowModal]=useState(false);
+    const [showModal,setShowModal]=useState(false);
 
     useEffect(()=>{
          console.log(addassignState);
@@ -77,7 +77,7 @@ const TaskCard = () => {
 
    <button onClick={handleAddProject} className='btn btn-warning'>Add Project</button>
 
-   {/* <button onClick={()=>console.log(state)}>showprojects</button> */}
+   <button onClick={()=>console.log(state)}>showprojects</button>
     </div>
   )
 }

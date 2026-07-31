@@ -42,15 +42,21 @@ const Assigntask = () => {
     <div>
         {/* ROLE */}
        <h5 className="card-title fw-bold mb-3 text-dark">Select Assignies</h5>
-       {AssignState.assign_in.map((assign)=>(
-        <p>{assign.developername} {assign.AssignState.role}</p>
+       <ol >
+        {AssignState.assign_in.map((assign)=>(
+        <li className='text-center'>{assign.developername} {assign.AssignState.role}</li>
        ))}
+
+       </ol>
+       
                     
-               <div className='mx-auto' style={{maxWidth:"350px"}}>
+               <div className='mx-auto' style={{maxWidth:"370px"}}>
                 {AssignState.developers.map((dev)=>(
                   <div key={dev.id} className="card mb-1">
-                    <p>{dev.name} | {dev.expertise[0]}</p>
-                    <button onClick={()=>handleModal(dev.id)} style={{width:"150px"}} type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" >select</button>
+                    <p>{dev.name} | {dev.expertise[0]}
+                      <span><button onClick={()=>handleModal(dev.id)} style={{width:"150px"}} type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" >select</button></span>
+                    </p>
+                    
                     
 
                   </div>
