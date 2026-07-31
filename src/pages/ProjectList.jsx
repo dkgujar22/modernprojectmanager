@@ -41,6 +41,7 @@ const ProjectList = () => {
         })}>DELETE</button>
 
         <button onClick={()=>handleEdit(task.id)}>Edit project</button>
+        <button>Add Assignment</button>
         <button>Edit Assignment</button>
 
     </div>
