@@ -4,7 +4,7 @@ const TaskContext=createContext();
 
 const initialState={
     tasks:[],
-    
+
 }
 
 const reducer=(state,action)=>{
@@ -18,7 +18,14 @@ const reducer=(state,action)=>{
         case "TOGGLE_DELETE":
             return {tasks:state.tasks.filter((task)=>(
                 task.id!==action.payload
-            ))}       
+            ))}  
+        case "HANDLE_EDIT":
+            return {tasks:state.tasks.map((task)=>(
+                task.id===action.payload.id?{...task,
+                    projectname:action.payload.taskState.projectname,
+                    projectpriority:action.payload.taskState.priority,
+                    projectDate:action.payload.taskState.dueDate}:task
+            ))}         
         default:
             return state;    
     }

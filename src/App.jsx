@@ -8,6 +8,7 @@ import { TaskProvider } from './context/TaskContext'
 import { AssignProvider } from './context/AssignContext'
 import { CreateAssignyProvider } from './context/CreateAssignyContext'
 import Layout from './Layout'
+import { CreateTaskProvider } from './context/CreateTaskContext'
 
 
 // const Layout=()=>{
@@ -22,7 +23,9 @@ function App() {
    <TaskProvider>
     <AssignProvider>
       <CreateAssignyProvider>
-        <Layout/>
+        <CreateTaskProvider>
+              <Layout/>
+        </CreateTaskProvider>
       </CreateAssignyProvider>
     </AssignProvider>
    </TaskProvider>

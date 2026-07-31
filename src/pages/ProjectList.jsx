@@ -1,15 +1,25 @@
 import React from 'react'
 import { useTask } from '../context/TaskContext'
+import { useCreateTask } from '../context/CreateTaskContext';
+import { useNavigate } from 'react-router';
 
 const ProjectList = () => {
+    const {state:taskState,dispatch:taskDispatch,setEditId,setBtn}=useCreateTask();
     const {state,dispatch}=useTask();
+    const navigate=useNavigate();
+
     const handleEdit=(editId)=>{
       const getedititem=state.tasks.filter(task=>task.id===editId);
-      console.log(getedititem);
+      // console.log(getedititem);
+      console.log(state.tasks);
       
-      
-
-       
+      setEditId(editId)
+      setBtn(false)
+      taskDispatch({ type: "ADD_PROJECTNAME", payload: getedititem[0].projectname });
+      taskDispatch({ type: "ADD_PRIORITY", payload: getedititem[0].projectpriority });
+      taskDispatch({ type: "ADD_DUEDATE", payload: getedititem[0].projectDate });
+      console.log(taskState);
+      navigate('/addproject')   
     }
   return (
     <div>
