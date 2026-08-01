@@ -13,7 +13,7 @@ const reducer=(state,action)=>{
             return {tasks:[...state.tasks,action.payload]};
         case "TOGGLE_COMPLETE":
             return {tasks:state.tasks.map((task)=>(
-                task.id===action.payload?{...task,isCompleted:true}:task
+                task.id===action.payload?{...task,isCompleted:!task.isCompleted}:task
             ))} 
         case "TOGGLE_DELETE":
             return {tasks:state.tasks.filter((task)=>(

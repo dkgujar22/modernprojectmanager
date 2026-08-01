@@ -46,7 +46,6 @@ const initialState={
     "name": "Usman Tariq",
     "expertise": [
       "Manager",
-      
     ],
     "experience": "7 years",
     "role": "Python Developer"
@@ -135,7 +134,10 @@ const reducer=(state,action)=>{
           //   ))
             return {...state,assign_in:[...state.assign_in,action.payload]};
         case "CLEAR_ASSIGN_IN":
-          return {...state,assign_in:[]}    
+          return {...state,assign_in:[]}  
+        case "DELETE_ASSIGNEE":
+          const assignee=state.assign_in.filter((assigne)=>assigne.id!==action.payload)
+          return {...state,assign_in:assignee};      
         case "HANDLE_MODAL":
           return {...state,modal:true}    
 

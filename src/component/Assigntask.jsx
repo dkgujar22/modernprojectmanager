@@ -18,13 +18,13 @@ const Assigntask = () => {
      }
 
      const handleAssignTask=()=>{
-      const developername=AssignState.developers.filter((dev)=>(
+      const developer=AssignState.developers.filter((dev)=>(
         dev.id===developerId
       ))
       DispatchAssign({
         type:"SELECT_ASSIGN_IN",
         payload:{
-          developername:developername[0].name,
+          developername:developer[0].name,
           developerId:developerId,
           AssignState:state
 
@@ -47,18 +47,13 @@ const Assigntask = () => {
         <li className='text-center'>{assign.developername} {assign.AssignState.role}</li>
        ))}
 
-       </ol>
-       
-                    
+       </ol>     
                <div className='mx-auto' style={{maxWidth:"370px"}}>
                 {AssignState.developers.map((dev)=>(
                   <div key={dev.id} className="card mb-1">
                     <p>{dev.name} | {dev.expertise[0]}
-                      <span><button onClick={()=>handleModal(dev.id)} style={{width:"150px"}} type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" >select</button></span>
+                      <span><button onClick={()=>handleModal(dev.id)} style={{width:"150px"}} type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">select</button></span>
                     </p>
-                    
-                    
-
                   </div>
                 ))}
                </div>
