@@ -38,15 +38,15 @@ const TaskCard = () => {
                 projectpriority:taskState.priority,
                 projectDate:taskState.dueDate,
                 isCompleted:false,
-                assignlist:addassignState.assign_in
+                // assignlist:addassignState.assign_in
             }
             
         })
         console.log(state.tasks);
         
-        dispatchAddAssign({
-            type:"CLEAR_ASSIGN_IN"
-        })
+        // dispatchAddAssign({
+        //     type:"CLEAR_ASSIGN_IN"
+        // })
 
     }
 
@@ -99,13 +99,10 @@ const TaskCard = () => {
     payload:e.target.value
    })}/>
 
-   <Assigntask/>
-
+   {/* <Assigntask/> */}
+   <br />
    {btn?<button onClick={handleAddProject} className='btn btn-warning'>Add Project</button>:
-   <button onClick={handleEditProject} className='btn btn-warning'>Edit Project</button>}
-
-   
-
+   <button onClick={handleEditProject} className='btn btn-warning'>Edit Project</button>} <br />
    <button onClick={()=>console.log(state)}>showprojects</button>
     </div>
   )

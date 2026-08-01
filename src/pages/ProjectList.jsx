@@ -29,13 +29,15 @@ const ProjectList = () => {
 
     const addAssignee=(devid)=>{
       console.log(devid);
-      
       const getselectAssignee=AssignState.developers.filter((dev)=>dev.id===devid);
       console.log(getselectAssignee);
       
       AssignDispatch({
         type:"SELECT_ASSIGN_IN",
-        payload:getselectAssignee[0]
+        payload:{
+          projectId:Date.now(),
+          selectAssignee:getselectAssignee[0]
+        }
       })
     }
 
@@ -46,19 +48,31 @@ const ProjectList = () => {
         })
     }
     const addAssigneeToProject=()=>{
-
-        
+      dispatch({
+        type:"ADD_ASSIGNEE_TOPROJECT",
+        payload:{
+          projectid:projectId,
+          addAssignee:AssignState.assign_in
+        }
+      }) 
+      AssignDispatch({
+        type:"CLEAR_ASSIGN_IN"
+      })    
     }
   return (
     <div>
-         <h1>Project list</h1>
+      <h1>Project list</h1>
 
-    {state.tasks.map((task)=>(
+    {state.tasks.map((task,index)=>(
       <div key={task.id}>
         <h3>{task.projectname} | {task.projectpriority} | {task.projectDate}</h3>
-
-        {task.assignlist.map((list)=>(
-            <p key={list.developerId}>{list.developername} | {list.AssignState.role} | {list.AssignState.taskpriority} | {list.AssignState.lastdate} </p>
+        {task.assignlist?.map((list)=>(
+          <div key={list.projectId}>
+            <p>{list.selectAssignee.name} <button>Add role</button></p>
+            
+          </div>
+            
+            
         ))}
         <button onClick={()=>dispatch({
           type:"TOGGLE_COMPLETE",
@@ -70,10 +84,7 @@ const ProjectList = () => {
           type:"TOGGLE_DELETE",
           payload:task.id
         })}>DELETE</button>
-
         <button onClick={()=>handleEdit(task.id)}>Edit project</button>
-        
-        
         <button onClick={()=>setProjectId(task.id)} type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Add Assignees
           </button>
@@ -104,12 +115,12 @@ const ProjectList = () => {
       <div className="modal-body">
 
        {AssignState.assign_in.map((assign)=>(
-        <div key={assign.id}>
-          <p>{assign.name}</p>
-          <button onClick={()=>deleteAssignee(assign.id)}><FaDeleteLeft/></button>
+        <div key={assign.selectAssignee.id}>
+          <p>{assign.selectAssignee.name}</p>
+          <button onClick={()=>deleteAssignee(assign.selectAssignee.id)}><FaDeleteLeft/></button>
         </div>
        ))}
-       
+
        <hr />
         {/* add assignment */}
         {AssignState.developers.map((dev)=>(
@@ -122,7 +133,7 @@ const ProjectList = () => {
            </div>
 
           </div>
-               ))}
+        ))}
 
 
         <button onClick={()=>console.log(AssignState.assign_in)}>show assignerr</button>
@@ -137,6 +148,7 @@ const ProjectList = () => {
          
       
         <button>Edit Assignment</button>
+        <button onClick={()=>console.log(state.tasks)}>showprojects</button>
         </div>
    ))}
    

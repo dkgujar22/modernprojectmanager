@@ -25,7 +25,10 @@ const reducer=(state,action)=>{
                     projectname:action.payload.taskState.projectname,
                     projectpriority:action.payload.taskState.priority,
                     projectDate:action.payload.taskState.dueDate}:task
-            ))}         
+            ))} 
+        case "ADD_ASSIGNEE_TOPROJECT":
+            // const findproject=state.tasks.filter((task)=>task.id===action.payload.projectid)
+            return {tasks:state.tasks.map(task=>task.id===action.payload.projectid?{...task,assignlist:action.payload.addAssignee}:task)}               
         default:
             return state;    
     }

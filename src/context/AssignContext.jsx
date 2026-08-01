@@ -136,7 +136,7 @@ const reducer=(state,action)=>{
         case "CLEAR_ASSIGN_IN":
           return {...state,assign_in:[]}  
         case "DELETE_ASSIGNEE":
-          const assignee=state.assign_in.filter((assigne)=>assigne.id!==action.payload)
+          const assignee=state.assign_in.filter((assigne)=>assigne.selectAssignee.id!==action.payload)
           return {...state,assign_in:assignee};      
         case "HANDLE_MODAL":
           return {...state,modal:true}    
