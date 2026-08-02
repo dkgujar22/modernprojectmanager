@@ -3,16 +3,20 @@ import { useTask } from '../context/TaskContext'
 import { useCreateTask } from '../context/CreateTaskContext';
 import { useNavigate } from 'react-router';
 import { useAssign } from '../context/AssignContext';
-import { FaClosedCaptioning, FaCross } from 'react-icons/fa';
+import { FaClosedCaptioning, FaCross, FaPlus } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import Role from '../component/Role';
+// import { FaPlus } from 'react-icons/fa'
+import { useCreateAssigny } from '../context/CreateAssignyContext';
 
 const ProjectList = () => {
     const {state:taskState,dispatch:taskDispatch,setEditId,setBtn}=useCreateTask();
     const {state,dispatch}=useTask();
     const {state:AssignState,dispatch:AssignDispatch}=useAssign();
+    const {state:CreateRoleState,dispatch:CreateDispatch}=useCreateAssigny();
     const navigate=useNavigate();
     const [projectId,setProjectId]=useState(null);
+    const [AssigneeId,setAssigneeId]=useState(null);
 
     const handleEdit=(editId)=>{
       const getedititem=state.tasks.filter(task=>task.id===editId);
@@ -61,19 +65,112 @@ const ProjectList = () => {
         type:"CLEAR_ASSIGN_IN"
       })    
     }
+
+    const getAssigneeid=(assignid,projectid)=>{
+      setAssigneeId(assignid);
+      setProjectId(projectid);
+    }
+
+    const handleAddrole=()=>{
+
+        // const getAssignee=state.tasks.map((task)=>task.id===projectId?
+        // )
+        console.log(CreateRoleState);
+        console.log(projectId);
+        console.log(AssigneeId);
+        
+
+        // const getproject=state.tasks.map((tasks)=>task.id===projectId)
+        
+
+        dispatch({
+          type:"ADD_ROLE_TOASSIGNEE",
+          // payload:CreateRoleState
+          payload:{
+            projectId:projectId,
+            AssignId:AssigneeId,
+            roleState:CreateRoleState
+          }
+        })
+        
+    }
   return (
     <div>
       <h1>Project list</h1>
      {/* list the project */}
-    {state.tasks.map((task,index)=>(
+    {state.tasks.map((task)=>(
       <div key={task.id}>
         <h3>{task.projectname} | {task.projectpriority} | {task.projectDate}</h3>
         {task.assignlist?.map((list)=>(
-          <div key={list.projectId}>
-            <p>{list.selectAssignee.name} <Role AssignId={list.AssignId} projectId={list.projectId}/></p>     
+          <div key={list.assignid}>
+            <p>Name: {list.selectAssignee.name} role: {list.role} priority: {list.priority} dueDate: {list.dueDate} </p>    
+        
+             <button onClick={()=>getAssigneeid(list.AssignId,list.projectId)}  type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                      Add role
+                      </button>
           </div>
+
            
         ))}
+        {/* handle Add role to assignee modal */}
+        <div 
+                    className="modal fade" 
+                    id="exampleModal2" 
+                    tabIndex="-1" 
+                    aria-labelledby="exampleModalLabel" 
+                    aria-hidden="true"
+        
+                >
+               <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+        
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    Add role
+                  </h5>
+        
+                  <button 
+                    type="button" 
+                    className="btn-close" 
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+        
+             
+              <div className="modal-body">
+        
+                <input type="text"
+                placeholder='role'
+                value={CreateRoleState.role}
+                onChange={(e)=>CreateDispatch({
+                    type:"CREATE_ROLE",
+                    payload:e.target.value
+                    })} />
+                <br />
+                <input type="text"
+                placeholder='priority'
+                value={CreateRoleState.priority}
+                onChange={(e)=>CreateDispatch({
+                    type:"CREATE_PRIORITY",
+                    payload:e.target.value
+                    })} />
+                <br />
+                <input type="date"
+                value={CreateRoleState.lastdate}
+                onChange={(e)=>CreateDispatch({
+                    type:"CREATE_LASTDATE",
+                    payload:e.target.value
+                    })} />
+                <br />
+                <button onClick={handleAddrole} data-bs-dismiss="modal">Add role</button>    
+        
+              </div>
+            </div>
+          </div>
+        </div> 
+
+
+
         {/* Toggle complete */}
         <button onClick={()=>dispatch({
           type:"TOGGLE_COMPLETE",

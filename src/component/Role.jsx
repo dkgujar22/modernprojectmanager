@@ -8,18 +8,14 @@ const Role = ({projectId,AssignId}) => {
     const {state,dispatch}=useTask();
 
 
-    const getAssigneeId=()=>{
-
-
-
-    }
-
     const handleAddrole=()=>{
 
         // const getAssignee=state.tasks.map((task)=>task.id===projectId?
         // )
         console.log(CreateRoleState);
         console.log(projectId);
+        console.log(AssignId);
+        
 
         // const getproject=state.tasks.map((tasks)=>task.id===projectId)
         
@@ -37,7 +33,7 @@ const Role = ({projectId,AssignId}) => {
     }
   return (
     <div>
-        <button onClick={getAssigneeId}  type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        <button   type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
           <FaPlus/>
           </button>
 
