@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { useAssign } from '../context/AssignContext';
 import { FaClosedCaptioning, FaCross } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import Role from '../component/Role';
 
 const ProjectList = () => {
     const {state:taskState,dispatch:taskDispatch,setEditId,setBtn}=useCreateTask();
@@ -28,14 +29,15 @@ const ProjectList = () => {
     }
 
     const addAssignee=(devid)=>{
-      console.log(devid);
+      console.log(devid); 
       const getselectAssignee=AssignState.developers.filter((dev)=>dev.id===devid);
       console.log(getselectAssignee);
       
       AssignDispatch({
         type:"SELECT_ASSIGN_IN",
         payload:{
-          projectId:Date.now(),
+          projectId:projectId,
+          AssignId:Date.now(),
           selectAssignee:getselectAssignee[0]
         }
       })
@@ -62,32 +64,39 @@ const ProjectList = () => {
   return (
     <div>
       <h1>Project list</h1>
-
+     {/* list the project */}
     {state.tasks.map((task,index)=>(
       <div key={task.id}>
         <h3>{task.projectname} | {task.projectpriority} | {task.projectDate}</h3>
         {task.assignlist?.map((list)=>(
           <div key={list.projectId}>
-            <p>{list.selectAssignee.name} <button>Add role</button></p>
-            
+            <p>{list.selectAssignee.name} <Role AssignId={list.AssignId} projectId={list.projectId}/></p>     
           </div>
-            
-            
+           
         ))}
+        {/* Toggle complete */}
         <button onClick={()=>dispatch({
           type:"TOGGLE_COMPLETE",
           payload:task.id
         })}>
           {task.isCompleted?"completed":"toggle complete"}
           </button>
+
+        {/* Toggle Delete */}
         <button onClick={()=>dispatch({
           type:"TOGGLE_DELETE",
           payload:task.id
         })}>DELETE</button>
+
+        {/* handle Edit project */}
         <button onClick={()=>handleEdit(task.id)}>Edit project</button>
+
+        {/* button to open modal */}
         <button onClick={()=>setProjectId(task.id)} type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Add Assignees
           </button>
+
+          {/*Modal to seclect assignee  */}
         <div 
             className="modal fade" 
             id="exampleModal" 
@@ -113,7 +122,7 @@ const ProjectList = () => {
 
      
       <div className="modal-body">
-
+      {/* list the assignee */}
        {AssignState.assign_in.map((assign)=>(
         <div key={assign.selectAssignee.id}>
           <p>{assign.selectAssignee.name}</p>
@@ -135,8 +144,10 @@ const ProjectList = () => {
           </div>
         ))}
 
+        
+        {/* <button onClick={()=>console.log(AssignState.assign_in)}>show assignerr</button> */}
 
-        <button onClick={()=>console.log(AssignState.assign_in)}>show assignerr</button>
+        {/*  button to add the assignee to a project*/}
         <button onClick={addAssigneeToProject} className="btn btn-success mt-3" data-bs-dismiss="modal">
           Assign task
         </button>

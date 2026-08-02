@@ -104,6 +104,7 @@ const TaskCard = () => {
    {btn?<button onClick={handleAddProject} className='btn btn-warning'>Add Project</button>:
    <button onClick={handleEditProject} className='btn btn-warning'>Edit Project</button>} <br />
    <button onClick={()=>console.log(state)}>showprojects</button>
+   <button onClick={()=>console.log(addassignState)}>show assignees</button>
     </div>
   )
 }

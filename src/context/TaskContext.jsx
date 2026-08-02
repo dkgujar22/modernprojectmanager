@@ -28,7 +28,18 @@ const reducer=(state,action)=>{
             ))} 
         case "ADD_ASSIGNEE_TOPROJECT":
             // const findproject=state.tasks.filter((task)=>task.id===action.payload.projectid)
-            return {tasks:state.tasks.map(task=>task.id===action.payload.projectid?{...task,assignlist:action.payload.addAssignee}:task)}               
+            return {tasks:state.tasks.map(task=>task.id===action.payload.projectid?{...task,assignlist:action.payload.addAssignee}:task)}  
+        case "ADD_ROLE_TOASSIGNEE":
+            const getproject=state.tasks.map((task)=>task.id===action.payload.projectId);
+            const updateproject=getproject[0].assignlist?.map((list)=>
+                list.AssignId===action.payload.AssignId?
+                {...list,role:action.payload.roleState.role,
+                priority:action.payload.roleState.taskpriority,
+                dueDate:action.payload.roleState.lastdate}:list)
+             console.log(updateproject);
+                
+            
+            return {tasks:state.tasks.map((task)=>task.id===updateproject.id?updateproject:task)};            
         default:
             return state;    
     }
