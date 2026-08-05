@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink, Outlet } from 'react-router'
+import { NavLink, Outlet, useNavigate } from 'react-router'
 
 const Root = () => {
+  const navigate=useNavigate();
   return (
     // <div classNameName=''>
     //     <ul>
@@ -27,8 +28,8 @@ const Root = () => {
     </button> */}
     <div className="collapse navbar-collapse text-center" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <button className='btn btn-success me-3'>Login</button>
-        <button className='btn btn-warning'>Signup</button>
+        <button className='btn btn-success me-3' onClick={()=>navigate('/login')}>Login</button>
+        <button className='btn btn-warning' onClick={()=>navigate('/signup')}>Signup</button>
         {/* <li className="nav-item">
           <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
         </li>

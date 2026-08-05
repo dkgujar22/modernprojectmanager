@@ -30,7 +30,7 @@ const Home = () => {
 
   const createProject=()=>{
     if(state.user){
-      navigate('/addproject')
+      navigate('/dashboard')
     }
     else {
       navigate('/login')

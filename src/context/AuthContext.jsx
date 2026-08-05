@@ -28,12 +28,14 @@ export const AuthProvider=({children})=>{
 
 
 
-   const handleSignUp=async()=>{
+   const handleSignUpsupabase=async(email,password)=>{
      const {error}=await supabase.auth.signUp({
-        email,password
+        email,
+        password
      })
-    if(error) alert(error.message);
+     return error
    }
+
    const handleLoginwithsupabase=async()=>{
     const {error}=await supabase.auth.signInWithPassword({
         email:state.email,
@@ -48,7 +50,7 @@ export const AuthProvider=({children})=>{
 
 
     return(
-        <AuthContext.Provider value={{state,dispatch,handleLoginwithsupabase,Logout}}>
+        <AuthContext.Provider value={{state,dispatch,handleLoginwithsupabase,handleSignUpsupabase,Logout}}>
             {children}
         </AuthContext.Provider>
     )

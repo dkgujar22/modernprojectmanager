@@ -19,7 +19,7 @@ const Login = () => {
     toast.success("Login successfully")
      setTimeout(() => {
             console.log(state);
-            navigate('/addproject')
+            navigate('/dashboard')
         }, 1000);
     }    
        
