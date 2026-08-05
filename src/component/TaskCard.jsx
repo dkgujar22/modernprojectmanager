@@ -3,11 +3,15 @@ import { useTask } from '../context/TaskContext';
 import { useAssign } from '../context/AssignContext';
 import Assigntask from './Assigntask';
 import { useCreateTask } from '../context/CreateTaskContext';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router';
 
 const TaskCard = () => {
     const {state:taskState,dispatch:taskDispatch,editId,setEditId,btn,setBtn}=useCreateTask();
     const {state,dispatch}=useTask();
     const {state:addassignState,dispatch:dispatchAddAssign}=useAssign();
+    const {Logout}=useAuth();
+    const navigate=useNavigate();
     // const [taskname,setTaskname]=useState('');
     // const [priority,setPriority]=useState('');
     // const [assigny,setAssigny]=useState(null);
@@ -66,6 +70,13 @@ const TaskCard = () => {
         setEditId(null);
         
     }
+    const handleLogout=async()=>{
+        Logout(); 
+        navigate('/')
+
+
+
+    }
 
     
   return (
@@ -103,8 +114,9 @@ const TaskCard = () => {
    <br />
    {btn?<button onClick={handleAddProject} className='btn btn-warning'>Add Project</button>:
    <button onClick={handleEditProject} className='btn btn-warning'>Edit Project</button>} <br />
-   <button onClick={()=>console.log(state)}>showprojects</button>
-   <button onClick={()=>console.log(addassignState)}>show assignees</button>
+   <button onClick={handleLogout}>logout</button>
+   {/* <button onClick={()=>console.log(state)}>showprojects</button>  */}
+   {/* <button onClick={()=>console.log(addassignState)}>show assignees</button> */}
     </div>
   )
 }

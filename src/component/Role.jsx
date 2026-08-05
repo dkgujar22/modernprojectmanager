@@ -1,11 +1,16 @@
 import React from 'react'
-import { FaPlus } from 'react-icons/fa'
+
 import { useCreateAssigny } from '../context/CreateAssignyContext'
 import { useTask } from '../context/TaskContext';
 
 const Role = ({projectId,AssignId}) => {
     const {state:CreateRoleState,dispatch:CreateDispatch}=useCreateAssigny();
     const {state,dispatch}=useTask();
+
+
+    const getAssignId=()=>{
+
+    }
 
 
     const handleAddrole=()=>{
@@ -33,7 +38,7 @@ const Role = ({projectId,AssignId}) => {
     }
   return (
     <div>
-        <button   type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        <button onClick={getAssignId}  type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
           <FaPlus/>
           </button>
 

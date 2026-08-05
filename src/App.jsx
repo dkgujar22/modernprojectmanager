@@ -9,6 +9,7 @@ import { AssignProvider } from './context/AssignContext'
 import { CreateAssignyProvider } from './context/CreateAssignyContext'
 import Layout from './Layout'
 import { CreateTaskProvider } from './context/CreateTaskContext'
+import { AuthProvider } from './context/AuthContext'
 
 
 // const Layout=()=>{
@@ -20,7 +21,8 @@ import { CreateTaskProvider } from './context/CreateTaskContext'
 
 function App() {
   return (
-   <TaskProvider>
+    <AuthProvider>
+       <TaskProvider>
     <AssignProvider>
       <CreateAssignyProvider>
         <CreateTaskProvider>
@@ -29,6 +31,9 @@ function App() {
       </CreateAssignyProvider>
     </AssignProvider>
    </TaskProvider>
+
+    </AuthProvider>
+  
   )
 }
 

@@ -3,11 +3,12 @@ import { useTask } from '../context/TaskContext'
 import { useCreateTask } from '../context/CreateTaskContext';
 import { useNavigate } from 'react-router';
 import { useAssign } from '../context/AssignContext';
-import { FaClosedCaptioning, FaCross, FaPlus } from 'react-icons/fa';
+import { FaCheck, FaClosedCaptioning, FaCross, FaPlus, FaRegEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import Role from '../component/Role';
 // import { FaPlus } from 'react-icons/fa'
 import { useCreateAssigny } from '../context/CreateAssignyContext';
+import { HiOutlineCheck, HiOutlineTrash, HiOutlineUserAdd, HiOutlineX } from 'react-icons/hi';
 
 const ProjectList = () => {
     const {state:taskState,dispatch:taskDispatch,setEditId,setBtn}=useCreateTask();
@@ -100,14 +101,34 @@ const ProjectList = () => {
      {/* list the project */}
     {state.tasks.map((task)=>(
       <div key={task.id}>
-        <h3>{task.projectname} | {task.projectpriority} | {task.projectDate}</h3>
+        <h3>{task.projectname} | {task.projectpriority} | {task.projectDate}</h3> 
+         {/* Toggle complete */}
+        <button className='btn btn-warning' onClick={()=>dispatch({
+          type:"TOGGLE_COMPLETE",
+          payload:task.id
+        })}>
+          {task.isCompleted?<HiOutlineCheck/>:"toggle complete"}
+          </button>
+          {/* Toggle Delete */}
+        <button className='btn btn-danger' onClick={()=>dispatch({
+          type:"TOGGLE_DELETE",
+          payload:task.id
+        })}><HiOutlineTrash /></button>
+
+         {/* button to open modal */}
+        <button onClick={()=>setProjectId(task.id)} type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <HiOutlineUserAdd />
+          </button>
+
+         {/* handle Edit project */}
+        <button className='btn btn-info' onClick={()=>handleEdit(task.id)}><FaRegEdit /></button>
         {task.assignlist?.map((list)=>(
           <div key={list.assignid}>
-            <p>Name: {list.selectAssignee.name} role: {list.role} priority: {list.priority} dueDate: {list.dueDate} </p>    
+            <p>{list.selectAssignee.name} {list.selectAssignee.expertise[0]}  {list.role} {list.priority} {list.dueDate} </p>    
         
              <button onClick={()=>getAssigneeid(list.AssignId,list.projectId)}  type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                       Add role
-                      </button>
+            </button>
           </div>
 
            
@@ -172,26 +193,26 @@ const ProjectList = () => {
 
 
         {/* Toggle complete */}
-        <button onClick={()=>dispatch({
+        {/* <button onClick={()=>dispatch({
           type:"TOGGLE_COMPLETE",
           payload:task.id
         })}>
           {task.isCompleted?"completed":"toggle complete"}
-          </button>
+          </button> */}
 
         {/* Toggle Delete */}
-        <button onClick={()=>dispatch({
+        {/* <button onClick={()=>dispatch({
           type:"TOGGLE_DELETE",
           payload:task.id
-        })}>DELETE</button>
+        })}>DELETE</button> */}
 
         {/* handle Edit project */}
-        <button onClick={()=>handleEdit(task.id)}>Edit project</button>
+        {/* <button onClick={()=>handleEdit(task.id)}>Edit project</button> */}
 
         {/* button to open modal */}
-        <button onClick={()=>setProjectId(task.id)} type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        {/* <button onClick={()=>setProjectId(task.id)} type="button" className="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Add Assignees
-          </button>
+          </button> */}
 
           {/*Modal to seclect assignee  */}
         <div 
@@ -255,8 +276,8 @@ const ProjectList = () => {
 </div> 
          
       
-        <button>Edit Assignment</button>
-        <button onClick={()=>console.log(state.tasks)}>showprojects</button>
+        {/* <button>Edit Assignment</button> */}
+        {/* <button onClick={()=>console.log(state.tasks)}>showprojects</button> */}
         </div>
    ))}
    
